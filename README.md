@@ -1,20 +1,19 @@
-# group3-project3
+# Group3-Project3
 
 ## Comparing food cost prices pre and post covid internationally
 
 This project is an example on how to take data and visualise using the following:
 
 * Collect and clean data using python 
-* Put data into data frames using 
-* Moving cleaned data from python to sql data base using Pgadmin 
-* Extract data from SQlite to flask api
-* Use flask api with Java to create visaulzations
+* Put data into data frames using Pandas
+* Import cleaned data from python to sql data base using Pgadmin 
+* Use flask api with Javascript to create visaulzations
 
 ## Built with
 
 * ![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png)
 * ![alt text](https://cdn.filestackcontent.com/GgTFAbNTtiA09pWpwLAz)
-* ![alt text](https://www.sqlitetutorial.net/wp-content/uploads/2021/04/sqlite-tutorial-homepage.svg)
+* ![alt text](https://img.favpng.com/23/22/15/postgresql-clip-art-database-logo-png-favpng-XY45VhGYXSsd30MMEYj3zXLvg.jpg)
 * ![alt text](https://nordicapis.com/wp-content/uploads/How-to-Create-an-API-Using-The-Flask-Framework-1024x576.png)
 * ![alt text](https://www.developer.com/wp-content/uploads/2021/09/Java-tutorials-300x200.jpg)
 

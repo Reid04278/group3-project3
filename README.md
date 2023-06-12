@@ -1,12 +1,12 @@
-# Group3-Project3
+# Global Food Price Changes
 
 ## Comparing food cost prices overtime internationally 
 
-This project is an example on how to take data and visualize it using the following:
-
-* Collect and clean data using Python 
+This project is an example on how to take raw data ,clean it ,and visualize it into easy to understand charts by doing the following:
+* Downloaded orginal data via www.kaggle.com as csv files
+* Cleaned data using Python 
 * Put data into data frames using Pandas
-* Import cleaned data from python to SQL data base using Pgadmin 
+* Import Cleaned data from python to SQL data base using Pgadmin 
 * Use flask api with JavaScript to create visualizations
 
 ## Built with
@@ -28,4 +28,16 @@ This project is an example on how to take data and visualize it using the follow
 * Install Pgadmin https://www.pgadmin.org/download/
 * Install Java https://code.visualstudio.com/docs/java/java-tutorial
 * Install plotly https://plotly.com/python/getting-started/
+
+
+## How to Run 
+
+* Import int_clean_data_cleaned.csv, new_dom_clean_data.csv , percent_change_postcovid.csv into SQl via Pgadmin4
+* Connect flask api with your SQL data base
+* Make sure to change the password with your own Pgadmin Password
+
+## Rescources 
+
+*  Original data source https://www.kaggle.com/datasets/thedevastator/domestic-food-prices-after-covid-19 
+
 

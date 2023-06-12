@@ -2,12 +2,12 @@
 
 ## Comparing food cost prices overtime internationally 
 
-This project is an example on how to take data and visualise using the following:
+This project is an example on how to take data and visualize it using the following:
 
-* Collect and clean data using python 
+* Collect and clean data using Python 
 * Put data into data frames using Pandas
-* Import cleaned data from python to sql data base using Pgadmin 
-* Use flask api with Javascript to create visaulzations
+* Import cleaned data from python to SQL data base using Pgadmin 
+* Use flask api with JavaScript to create visualizations
 
 ## Built with
 

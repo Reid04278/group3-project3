@@ -118,6 +118,33 @@ def country_list():
     
     return jsonify(countries)
 
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    # Create a cursor object to execute SQL queries
+    conn, cursor = create_cursor()
+
+    # Execute queries to retrieve data from tables
+    cursor.execute("SELECT * FROM int_clean_data_cleaned")
+    international_data = cursor.fetchall()
+
+    cursor.execute("SELECT * FROM dom_cleaned_data")
+    domestic_data = cursor.fetchall()
+    
+    cursor.execute("SELECT * FROM percent_change_post_covid")
+    percent_change_data = cursor.fetchall()
+    
+    # Process the data and create a response
+    response = {
+        'international_data': international_data,
+        'domstic_data': domestic_data,
+        'percent_change': percent_change_data
+    }
+
+    # Close the cursor and connection
+    cursor.close()
+    conn.close()
+
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.run(debug=True)

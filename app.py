@@ -3,13 +3,15 @@ import sqlalchemy
 import pandas as pd
 from flask import Flask, jsonify
 import psycopg2
+from flask_cors import CORS
+
 
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
-
+cors = CORS(app)
 
 # Function to create connection and cursor to connect to the PostgreSQL Database
 def create_cursor():
@@ -18,6 +20,7 @@ def create_cursor():
         host='localhost',
         database='project3',
         user='postgres',
+        #Replace with YOUR user password for pgadmin 4
         password='Gwqcmn47sv'
     )
 
@@ -71,10 +74,10 @@ def welcome():
 
     
 @app.route("/api/v1.0/domestic_change/<country>")
-def domestic_change():
+def domestic_change(country):
     conn, cursor = create_cursor()
     
-    cursor.execute('SELECT * FROM dom_cleaned_data')
+    cursor.execute(f"SELECT * FROM dom_cleaned_data where country = '{country}' ORDER BY commodity,month")
 
     domestic_data = cursor.fetchall()
     
@@ -82,32 +85,40 @@ def domestic_change():
     cursor.close()
     conn.close()
     
-    str = "Let's see if this string prints"
-    return jsonify(str, domestic_data)
+    return jsonify(domestic_data)
 
-@app.route("/api/v1.0/international_food_price_data/<country>")
-def international_data(country):
+@app.route("/api/v1.0/domestic_commodities/<country>")
+def domestic_commodities(country):
     conn, cursor = create_cursor()
     
-    query = f"SELECT * FROM int_clean_data_cleaned WHERE country = '{country}' ORDER BY commodity,time"
-    cursor.execute(query)
+    cursor.execute(f"SELECT DISTINCT commodity FROM dom_cleaned_data where country = '{country}' ORDER BY commodity")
 
-    international_data = cursor.fetchall()
-    
-    cursor.execute(f"SELECT DISTINCT commodity FROM int_clean_data_cleaned WHERE country = '{country}'")
     commodities = cursor.fetchall()
-    # Close the cursor and the database connection
-    cursor.close()
-    conn.close()
     
-    return jsonify(commodities,international_data)
+    return jsonify(commodities)
+# @app.route("/api/v1.0/international_food_price_data/<country>")
+# def international_data(country):
+#     conn, cursor = create_cursor()
+    
+#     query = f"SELECT * FROM int_clean_data_cleaned WHERE country = '{country}' ORDER BY commodity,time"
+#     cursor.execute(query)
+
+#     international_data = cursor.fetchall()
+    
+#     cursor.execute(f"SELECT DISTINCT commodity FROM int_clean_data_cleaned WHERE country = '{country}'")
+#     commodities = cursor.fetchall()
+#     # Close the cursor and the database connection
+#     cursor.close()
+#     conn.close()
+    
+#     return jsonify(commodities,international_data)
 
 
 @app.route("/api/v1.0/country_list")
 def country_list():
     conn, cursor = create_cursor()
     
-    query = f"SELECT DISTINCT country FROM int_clean_data_cleaned"
+    query = f"SELECT DISTINCT country FROM dom_cleaned_data"
     cursor.execute(query)
     
     countries = cursor.fetchall()
@@ -124,20 +135,18 @@ def get_data():
     conn, cursor = create_cursor()
 
     # Execute queries to retrieve data from tables
-    cursor.execute("SELECT * FROM int_clean_data_cleaned")
-    international_data = cursor.fetchall()
+    # cursor.execute("SELECT * FROM int_clean_data_cleaned")
+    # international_data = cursor.fetchall()
 
     cursor.execute("SELECT * FROM dom_cleaned_data")
     domestic_data = cursor.fetchall()
     
-    cursor.execute("SELECT * FROM percent_change_post_covid")
-    percent_change_data = cursor.fetchall()
+    # cursor.execute("SELECT * FROM percent_change_post_covid")
+    # percent_change_data = cursor.fetchall()
     
     # Process the data and create a response
     response = {
-        'international_data': international_data,
-        'domstic_data': domestic_data,
-        'percent_change': percent_change_data
+        'domstic_data': domestic_data
     }
 
     # Close the cursor and connection

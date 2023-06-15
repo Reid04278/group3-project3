@@ -3,11 +3,11 @@
 
 ## Comparing food cost prices overtime internationally
 * Our goal is to look at food prices over a ten-year span and determine which factors could cause Fluctuations in price
-This project is an example on how to take raw data, clean it ,and visualize it into easy to understand charts by doing the following:
-* Downloaded orginal data via www.kaggle.com as csv files
-* Cleaned data using Python
+This project is an example on how to take raw data, clean it, and visualize it into easy to understand charts by doing the following:
+* Download original data via www.kaggle.com as csv files
+* Clean data using Python
 * Put data into data frames using Pandas
-* Import Cleaned data from python to SQL data base using Pgadmin
+* Import cleaned data from python to SQL data base using Pgadmin
 * Use flask api with JavaScript to create visualizations
 
 
@@ -32,7 +32,7 @@ This project is an example on how to take raw data, clean it ,and visualize it i
 ## How to Run
 * Import Boxplot.csv,bar_wheat_2020.csv, bar_wheat_2010.csv,   international_data_annual_index.csv,Line_graph_annual_data.csv into SQl via Pgadmin4
 * Connect flask api with your SQL data base
-* Make sure to change the password with your own Pgadmin Password
+* Make sure to change the password with your own Pgadmin postgres User Password
 
 
 ## Interesting Finds

@@ -23,12 +23,16 @@ function updateBoxplot(country){
     console.log(yAxisLabels)
 
     var layout = {
-      title: 'Commodity Prices for ' + country,
-      width: 600,
-      height: 500
-    };
+      title: 'Commodity Price Ranges for ' + country,
+      xaxis:{
+        title: 'Price ($)'
+      },
+      yaxis:{
+        tickangle:-45
+      }
+    }
 
-    Plotly.newPlot('chart', traces, layout); 
+    Plotly.newPlot('box', traces, layout); 
   })      
 }
 
@@ -66,9 +70,13 @@ function updateLinegraphs(country){
       }
 
       var layout = {
-        title: 'Commodities for ' + country,
-        width: 600,
-        height: 500
+        title: 'Commodities for ' + country + ' Over 10 Years',
+        xaxis:{
+          title: 'Time (Years)'
+        },
+        yaxis:{
+          title: "Cost ($)"
+        }
       };
       Plotly.newPlot('linechart',y_traces,layout)
     })
@@ -79,26 +87,20 @@ function updateLinegraphs(country){
 function commodityLinegraph(){
   url = "http://127.0.0.1:5000/api/v1.0/int_commodity_list"
   d3.json(url).then(function(commodities){
-    //data = all countries + commodities
-    console.log(commodities)
     let x_times = [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020]
     let y_traces = []
     
     url2 = "http://127.0.0.1:5000/api/v1.0/int_commodity_data"
     d3.json(url2).then(function(commodity_data){
-      console.log(commodity_data)
-      //data2 = commodities for each country
       
       for(i = 0; i < commodities.length; i++){
         let commodity = commodities[i][0]
 
         //Not all commodities have data for 2020 so we will extract the x_values from the returned data
-        //let x_values = []
         let y_values = []
         //Iterate through all 
         for(j=0; j< commodity_data.length; j++){
           if(commodity_data[j][0] == commodity){
-            //x_values.push(commodity_data[j][1])
             y_values.push(commodity_data[j][2])
           }
         }
@@ -115,8 +117,12 @@ function commodityLinegraph(){
 
       var layout = {
         title: 'International Commodity Prices',
-        width: 700,
-        height: 500
+        xaxis:{
+          title: 'Time (Years)'
+        },
+        yaxis:{
+          title: "International Cost ($)"
+        }
       };
       Plotly.newPlot('line2',y_traces,layout)
     })
@@ -124,7 +130,7 @@ function commodityLinegraph(){
   })
 }
 
-function updateStackedBar(){
+function updateBar(){
   url1 = "http://127.0.0.1:5000/api/v1.0/bar_2010"
   url2 = "http://127.0.0.1:5000/api/v1.0/bar_2020"
   let x_countries = []
@@ -160,13 +166,17 @@ function updateStackedBar(){
     var traces = [trace1,trace2]
     let layout = {
       title: "Wheat Price Differences from 2010 to 2020",
-      barmode: 'stack',
+      barmode: 'group',
       xaxis: {
-        type: 'category'
+        type: 'category',
+        title: 'Country'
+      },
+      yaxis:{
+        title: "Domestic Cost ($)"
       }
     }
   
-    Plotly.newPlot('stackbar',traces,layout)
+    Plotly.newPlot('groupbar',traces,layout)
   })
 
   console.log(x_countries)
@@ -197,7 +207,7 @@ function init() {
     optionChanged(data[0][0]);
   });
 
-  updateStackedBar()
+  updateBar()
   commodityLinegraph()
 }   
     
